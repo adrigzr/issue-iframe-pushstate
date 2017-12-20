@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        font-size: 23px;
+      }
+      .button {
+        background-color: #be28c1;
+        padding: 5px;
+        text-align: center;
+        border-radius: 1px;
+        color:white;
+        font-size: 20px;
+        margin: 10px;
+        height: 50px;
+        line-height: 50px;
+      }
+      #content {
+        margin-left: 10px;
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <script>
+      function pushState(e) {
+        window.history.pushState({}, null);
+
+        updateHistory();
+      }
+
+      function appendIframe() {
+        var container = document.getElementById('iframe');
+
+        if (container.children[0]) {
+          container.removeChild(container.children[0]);
+        }
+
+        var iframe = document.createElement('iframe');
+
+        iframe.src = 'chromium.png';
+        iframe.width = 400;
+        iframe.height = 400;
+
+        container.appendChild(iframe);
+      }
+
+      function updateHistory() {
+        var element = document.getElementById('historyLength');
+
+        element.innerText = window.history.length;
+      }
+
+      window.addEventListener('statechange', function()  {
+        updateHistory();
+      });
+
+      window.addEventListener('load', function()  {
+        updateHistory();
+      });
+    </script>
+  </head>
+
+  <body>
+    <div>
+      <button class="button" onclick="javascript: appendIframe(); pushState()">Iframe & Push</button>
+      <button class="button" onclick="javascript: pushState(); appendIframe()">Push & Iframe</button>
+      <button class="button" onclick="javascript: window.history.back()">Back</button>
+    </div>
+
+    <div>
+      History length: <span id="historyLength"></span>
+    </div>
+
+    <div id="iframe"><div>
+  </body>
+
+</html>
